@@ -7,6 +7,7 @@ namespace MfgFix
         struct Transition
         {
             float fDefaultSpeed{ 0.0f };
+            bool bLipsyncPassthrough{ true };  // phonemes a plugin drives every frame skip the slide
         };
 
         struct EyesBlinking

@@ -554,6 +554,19 @@ namespace MfgFix
             animMerge(phoneme1, phoneme2, phoneme3);
         } else {
             animMerge(phoneme1, phoneme2, phoneme3);
+
+            // phonemes another plugin drives every frame (lipsync) are shown as written, not slid
+            // (see ActorManager::TrackPhonemeDrivers). Not during a game dialogue: that mouth is the engine's.
+            if (Settings::Get().transition.bLipsyncPassthrough) {
+                std::array<float, ActorManager::kPhonemes> weight{};
+                ActorManager::TrackPhonemeDrivers(this, phoneme2.values, phoneme2.count, a_timeDelta, weight);
+                auto count = std::min<std::uint32_t>(std::min(phoneme2.count, phoneme3.count), ActorManager::kPhonemes);
+                for (std::uint32_t i = 0; i < count; ++i) {
+                    if (weight[i] > 0.0f) {
+                        phoneme3.values[i] += (phoneme2.values[i] - phoneme3.values[i]) * weight[i];
+                    }
+                }
+            }
         }
         // custom
         animMerge(custom1, custom2, custom3);

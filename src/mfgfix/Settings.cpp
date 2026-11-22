@@ -37,6 +37,7 @@ namespace MfgFix
         }
 
         transition.fDefaultSpeed = static_cast<float>(ini.GetDoubleValue("Transition", "fDefaultSpeed", transition.fDefaultSpeed));
+        transition.bLipsyncPassthrough = ini.GetBoolValue("Transition", "bLipsyncPassthrough", transition.bLipsyncPassthrough);
 
         eyesBlinking.fBlinkDownTime = static_cast<float>(ini.GetDoubleValue("EyesBlinking", "fBlinkDownTime", eyesBlinking.fBlinkDownTime));
         eyesBlinking.fBlinkUpTime = static_cast<float>(ini.GetDoubleValue("EyesBlinking", "fBlinkUpTime", eyesBlinking.fBlinkUpTime));
@@ -117,6 +118,7 @@ namespace MfgFix
         ini.LoadFile(path.c_str());
 
         ini.SetDoubleValue("Transition", "fDefaultSpeed", transition.fDefaultSpeed);
+        ini.SetBoolValue("Transition", "bLipsyncPassthrough", transition.bLipsyncPassthrough);
 
         ini.SetDoubleValue("EyesBlinking", "fBlinkDownTime", eyesBlinking.fBlinkDownTime);
         ini.SetDoubleValue("EyesBlinking", "fBlinkUpTime", eyesBlinking.fBlinkUpTime);
